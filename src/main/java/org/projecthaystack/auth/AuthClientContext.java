@@ -65,26 +65,39 @@ final public class AuthClientContext
 
   public AuthClientContext open()
   {
+    HttpURLConnection helloResp = null;
+
+    try {
+      helloResp = sendHello();
+    } catch (Exception e1) {
+      e1.printStackTrace();
+      return null;
+    }
+
+    try {
+      // first try standard authentication va RFC 7235 process
+      if (openStd(helloResp))
+        return success();
+
+      if (helloResp.getResponseCode() == 200) return success();
+    } catch (Exception e1) {}
+
+    String content = null;
+    try {
+      content = readContent(helloResp);
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+
+    AuthScheme[] schemes = AuthScheme.list();
+    for (int i = 0; i< schemes.length; ++i)
+    {
+      if (schemes[i].onClientNonStd(this, helloResp, content))
+        return success();
+    }
+
     try
     {
-      // send initial hello message
-      HttpURLConnection helloResp = sendHello();
-//try { dumpRes(helloResp, false); } catch (Exception e) { e.printStackTrace(); }
-
-      // first try standard authentication va RFC 7235 process
-      if (openStd(helloResp)) return success();
-
-      // check if we have a 200
-      if (helloResp.getResponseCode() == 200) return success();
-
-      String content = readContent(helloResp);
-      AuthScheme[] schemes = AuthScheme.list();
-      for (int i = 0; i< schemes.length; ++i)
-      {
-        if (schemes[i].onClientNonStd(this, helloResp, content))
-          return success();
-      }
-
       // give up
       int resCode = helloResp.getResponseCode();
       String resServer = helloResp.getHeaderField("Server");

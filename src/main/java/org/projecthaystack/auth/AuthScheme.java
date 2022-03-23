@@ -46,6 +46,7 @@ public abstract class AuthScheme
     registry.put("hmac", new HmacScheme());
     registry.put("folio2", new Folio2Scheme());
     registry.put("basic", new BasicScheme());
+    registry.put("n4", new NiagaraScheme());
   }
 
 //////////////////////////////////////////////////////////////////////////

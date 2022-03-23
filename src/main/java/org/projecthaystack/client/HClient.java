@@ -761,12 +761,7 @@ public class HClient extends HProj
 
   public static void main(String[] args) throws Exception
   {
-    if (args.length != 3) {
-        System.out.println("usage: HClient <uri> <user> <pass>");
-        System.exit(0);
-    }
-
-    HClient client = makeClient(args[0], args[1], args[2]);
+    HClient client = HClient.open("http://172.16.8.200:8000/haystack", "bim", "Admin12345");
     System.out.println(client.about());
   }
 
