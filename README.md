@@ -1,4 +1,6 @@
 # README #
+This repo is a fork from [haystack-java](https://github.com/skyfoundry/haystack-java)
+
 
 The haystack-java library provides a java implementation of the haystack data model. It also includes a haystack 3.0 compliant client, and reference server.
 
