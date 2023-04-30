@@ -110,6 +110,7 @@ public class HaystackTokenizer
   {
     if ('a' <= cur && cur <= 'z') return true;
     if ('A' <= cur && cur <= 'Z') return true;
+    if (cur == '%' || cur > 255) return true; // Allow other chars and escape key char
     return false;
   }
 

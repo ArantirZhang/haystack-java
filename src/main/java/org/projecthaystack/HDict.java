@@ -146,13 +146,16 @@ public abstract class HDict extends HVal
   public static boolean isTagName(String n)
   {
     if (n.length() == 0) return false;
-    int first = n.charAt(0);
-    if (first < 'a' || first > 'z') return false;
-    for (int i=0; i<n.length(); ++i)
-    {
-      int c = n.charAt(i);
-      if (c >= 128 || !tagChars[c]) return false;
-    }
+    if (n.contains(" ")) return false; // checks for space only, cause it always breaks the logic
+
+    // Old Tag check method
+    // int first = n.charAt(0);
+    // if (first < 'a' || first > 'z') return false;
+    // for (int i=0; i<n.length(); ++i)
+    // {
+      // int c = n.charAt(i);
+      // if (c >= 128 || !tagChars[c]) return false;
+    // }
     return true;
   }
 
