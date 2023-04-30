@@ -60,7 +60,7 @@ public class HMatch {
   public static boolean matchAll(String string, String pattern) {
     if (!string.contains("|")) return match(string, pattern);
 
-    String[] matches = string.split("|");
+    String[] matches = string.split("\\|");
     for (String p : matches) {
       if (match(string, p)) {
         return true;
