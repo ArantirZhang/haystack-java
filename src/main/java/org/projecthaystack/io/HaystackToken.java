@@ -30,6 +30,7 @@ public class HaystackToken
   public static final HaystackToken minus = new HaystackToken("-");
   public static final HaystackToken eq = new HaystackToken("==");
   public static final HaystackToken notEq = new HaystackToken("!=");
+  public static final HaystackToken me = new HaystackToken("~=");
   public static final HaystackToken lt = new HaystackToken("<");
   public static final HaystackToken lt2 = new HaystackToken("<<");
   public static final HaystackToken ltEq = new HaystackToken("<=");

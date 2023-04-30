@@ -39,4 +39,5 @@ public abstract class HVal implements Comparable
     return toString().compareTo(that.toString());
   }
 
+  public boolean matches(Object that) { return false; }
 }

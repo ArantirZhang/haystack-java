@@ -65,6 +65,13 @@ public abstract class HFilter
   public static HFilter eq(String path, HVal val) { return new Eq(Path.make(path), val); }
 
   /**
+   * Match records which have a tag are equal or match the specified value.
+   * If the path is not defined then it is unmatched.
+   */
+  public static HFilter me(String path, HVal val) { return new Me(Path.make(path), val); }
+
+
+  /**
    * Match records which have a tag not equal to the specified value.
    * If the path is not defined then it is unmatched.
    */
@@ -315,6 +322,17 @@ public abstract class HFilter
   }
 
 //////////////////////////////////////////////////////////////////////////
+// Me
+//////////////////////////////////////////////////////////////////////////
+
+  static final class Me extends CmpFilter
+  {
+    Me(Path p, HVal v) { super(p, v); }
+    final String cmpStr() { return "~="; }
+    final boolean doInclude(HVal v) { return v != null && (v.equals(val) || v.matches(val)); }
+  }
+
+//////////////////////////////////////////////////////////////////////////
 // Ne
 //////////////////////////////////////////////////////////////////////////
 
@@ -474,6 +492,7 @@ public abstract class HFilter
 
       Path p = path();
       if (cur == HaystackToken.eq){ consume(); return new Eq(p, val()); }
+      if (cur == HaystackToken.me){ consume(); return new Me(p, val()); }
       if (cur == HaystackToken.notEq) { consume(); return new Ne(p, val()); }
       if (cur == HaystackToken.lt) { consume(); return new Lt(p, val()); }
       if (cur == HaystackToken.ltEq) { consume(); return new Le(p ,val()); }

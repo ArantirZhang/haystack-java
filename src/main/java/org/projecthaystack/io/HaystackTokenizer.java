@@ -444,6 +444,9 @@ public class HaystackTokenizer
       case '=':
         if (cur == '=') { consume('='); return HaystackToken.eq; }
         return HaystackToken.assign;
+      case '~':
+        if (cur == '=') { consume('='); return HaystackToken.me; }
+        return HaystackToken.bang;
       case '!':
         if (cur == '=') { consume('='); return HaystackToken.notEq; }
         return HaystackToken.bang;

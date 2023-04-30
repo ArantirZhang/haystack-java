@@ -43,6 +43,12 @@ public class HStr extends HVal
     return this.val.equals(((HStr)that).val);
   }
 
+  @Override
+  public boolean matches(Object that) {
+    if (!(that instanceof HStr)) return false;
+    return HMatch.match(this.val, ((HStr)that).val);
+  }
+
   /** Return value string. */
   public String toString()
   {
