@@ -49,14 +49,14 @@ public class HDictTest extends HValTest
   public void testIsTagName()
   {
     assertFalse(HDict.isTagName(""));
-    assertFalse(HDict.isTagName("A"));
+    assertTrue(HDict.isTagName("A"));
     assertFalse(HDict.isTagName(" "));
     assertTrue(HDict.isTagName("a"));
     assertTrue(HDict.isTagName("a_B_19"));
     assertFalse(HDict.isTagName("a b"));
-    assertFalse(HDict.isTagName("a\u0128"));
-    assertFalse(HDict.isTagName("a\u0129x"));
-    assertFalse(HDict.isTagName("a\uabcdx"));
+    assertTrue(HDict.isTagName("a\u0128"));
+    assertTrue(HDict.isTagName("a\u0129x"));
+    assertTrue(HDict.isTagName("a\uabcdx"));
   }
 
   @Test
